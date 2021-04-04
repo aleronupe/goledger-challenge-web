@@ -1,4 +1,5 @@
-import './App.css';
+import '../style/App.css';
+import ListaAtivos from './List';
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
           Learn React
         </a>
       </header>
+      <ListaAtivos />
     </div>
   );
 }
