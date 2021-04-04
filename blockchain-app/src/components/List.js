@@ -1,4 +1,5 @@
 import React from 'react';
+import { DataGrid } from '@material-ui/data-grid';
 
 class ListaAtivos extends React.Component {
     constructor(props) {
@@ -6,7 +7,13 @@ class ListaAtivos extends React.Component {
         this.state = {
             error: null,
             isLoaded: false,
-            items: []
+            items: [],
+            columns: [
+                { field: 'tag', headerName: 'Tag', width: 150 },
+                { field: 'label', headerName: 'Label', width: 150 },
+                { field: 'description', headerName: 'Description', width: 200 },
+                { field: 'writers', headerName: 'Writers', width: 200 },
+            ],
         };
     }
 
@@ -16,6 +23,11 @@ class ListaAtivos extends React.Component {
             .then(
                 (result) => {
                     console.log('olha o result: ', result);
+                    var cont = 0;
+                    result = result.map(item => {
+                        cont++;
+                        return {id: cont, ...item};
+                    });
                     this.setState({
                         isLoaded: true,
                         items: result
@@ -34,20 +46,18 @@ class ListaAtivos extends React.Component {
     }
 
     render() {
-        const { error, isLoaded, items } = this.state;
+        const { error, isLoaded, items, columns } = this.state;
         if (error) {
             return <div>Error: {error.message}</div>;
         } else if (!isLoaded) {
             return <div>Loading...</div>;
         } else {
             return (
-                <ul>
-                    {items.map(item => (
-                        <li key={item.tag}>
-                            {item.tag}
-                        </li>
-                    ))}
-                </ul>
+                <div>
+                    <div style={{ height: 400, width: '100%' }}>
+                        <DataGrid rows={items} columns={columns} checkboxSelection />
+                    </div>
+                </div>
             );
         }
     }
