@@ -1,5 +1,18 @@
 import React from 'react';
-import { DataGrid } from '@material-ui/data-grid';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemAvatar from '@material-ui/core/ListItemAvatar';
+import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
+import ListItemText from '@material-ui/core/ListItemText';
+import Avatar from '@material-ui/core/Avatar';
+import IconButton from '@material-ui/core/IconButton';
+import Grid from '@material-ui/core/Grid';
+import Typography from '@material-ui/core/Typography';
+import FolderIcon from '@material-ui/icons/Folder';
+import DeleteIcon from '@material-ui/icons/Delete';
+import LocalOfferIcon from '@material-ui/icons/LocalOffer';
+import PersonIcon from '@material-ui/icons/Person';
+import EditRoundedIcon from '@material-ui/icons/EditRounded';
 
 class ListaAtivos extends React.Component {
     constructor(props) {
@@ -8,12 +21,6 @@ class ListaAtivos extends React.Component {
             error: null,
             isLoaded: false,
             items: [],
-            columns: [
-                { field: 'tag', headerName: 'Tag', width: 150 },
-                { field: 'label', headerName: 'Label', width: 150 },
-                { field: 'description', headerName: 'Description', width: 200 },
-                { field: 'writers', headerName: 'Writers', width: 200 },
-            ],
         };
     }
 
@@ -26,7 +33,7 @@ class ListaAtivos extends React.Component {
                     var cont = 0;
                     result = result.map(item => {
                         cont++;
-                        return {id: cont, ...item};
+                        return { id: cont, ...item };
                     });
                     this.setState({
                         isLoaded: true,
@@ -46,7 +53,29 @@ class ListaAtivos extends React.Component {
     }
 
     render() {
-        const { error, isLoaded, items, columns } = this.state;
+        const { error, isLoaded, items } = this.state;
+
+        // function generate(element) {
+        //     return items.map((value) =>
+        //         React.cloneElement(element, {
+        //             key: value,
+        //         }),
+        //     );
+        // };
+
+        function decideIcon(tag) {
+            switch (tag) {
+                case "product":
+                    return (<LocalOfferIcon />);
+                case "seller":
+                    return (<PersonIcon />);
+                case "category":
+                    return (<FolderIcon />);
+                default:
+                    return (<FolderIcon />);
+            };
+        }
+
         if (error) {
             return <div>Error: {error.message}</div>;
         } else if (!isLoaded) {
@@ -54,10 +83,40 @@ class ListaAtivos extends React.Component {
         } else {
             return (
                 <div>
-                    <div style={{ height: 400, width: '100%' }}>
-                        <DataGrid rows={items} columns={columns} checkboxSelection />
-                    </div>
+                    <Grid container spacing={2} 
+                        alignItems="center"
+                        justify="center" >
+                        <Grid item xs={12} md={6} alignItems="center" >
+                            <Typography variant="h6" >Ativos</Typography>
+                            <div>
+                                <List>
+                                    {
+                                        items.map((item, idx) => <ListItem key={idx}>
+                                            <ListItemAvatar>
+                                                <Avatar>
+                                                    {decideIcon(item.tag)}
+                                                </Avatar>
+                                            </ListItemAvatar>
+                                            <ListItemText
+                                                primary={item.label}
+                                                secondary={item.description}
+                                            />
+                                            <ListItemSecondaryAction>
+                                                <IconButton edge="start" aria-label="edit">
+                                                    <EditRoundedIcon />
+                                                </IconButton>
+                                                <IconButton edge="end" aria-label="delete">
+                                                    <DeleteIcon />
+                                                </IconButton>
+                                            </ListItemSecondaryAction>
+                                        </ListItem>)
+                                    }
+                                </List>
+                            </div>
+                        </Grid>
+                    </Grid>
                 </div>
+
             );
         }
     }
