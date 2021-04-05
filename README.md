@@ -1,31 +1,51 @@
 # GoLedger Challenge
 
-In this challenge you will create a web interface to a blockchain application. 
-In this application you must implement a marketplace registration interface.
+Projeto de implementação de página de Marketplace
 
-# Requirements
+## Participante
 
-- Your application should be able to add/remove/edit and show all products, categories and sellers.
+### Alexandre Miguel Rodrigues Nunes Pereira**
 
-- Use JavaScript Frameworks for development, such as **Vue** and **React** (all UI libraries are allowed)
+## Tecnologias Utilizadas
 
-## Instructions
+| Nome | Versão |
+| -- | -- |
+| React | 17.0.2 |
+| npm | 6.14.4 |
+| Docker | 20.10.5 |
+| docker-compose | 1.27.4 |
 
-- Fork the repository https://github.com/goledgerdev/goledger-challenge-web
+## Execução
 
-  - Fork it, do **NOT** clone it, since you will need to send us your forked repository
-  - If you **cannot** fork it, create a private repository and give access to `samuelvenzi`, `igor-paiva` and `vieiramanoel` 
+Para executar o projeto, é necessário possuir o docker instalado na máquina, sendo assim basta seguir os seguintes passos
 
-- Create an web application using a JS Framework. You will implement the basic operations provided by the API, which are `Create`, `Update`, `Delete` and `Search`.
+``` bash
+# Clone do repositório
+$ git clone https://github.com/aleronupe/goledger-challenge-web
 
-- Improve your application with a beautiful UI.
+# Vá para o diretório do projeto
+$ cd goledger-challenge-web/blockchain-app
 
-## Server
+# Relize o comando do docker
+sudo docker-compose up --build
+```
 
-The data are obtained using a rest server at this address: `http://ec2-54-173-117-139.compute-1.amazonaws.com/api/`
+## Uso
 
-Also, a Swagger with the endpoints specifications for the operations is provided at this address: `http://ec2-54-173-117-139.compute-1.amazonaws.com/api-docs/`
+Ao executar os comandos acima, basta acessar o projeto pela url: 
 
-## Complete the challenge
+``` bash
+http://localhost:3000/
+```
 
-To complete the challenge, you must send us the link to your forked repository with the code of your application. Please, provide instructions to execute the code.
+Assim, o site aparecerá para o usuário.
+
+![blockchain_project](./blockchain_app.png)
+
+## Dependências
+
+Bibliotecas utilizadas no projeto:
+
+* [Material UI](https://material-ui.com/) - Para estilização do Frontend
+* [Axios](https://www.npmjs.com/package/axios) - Para efetivação das chamadas
+* [react-router-dom](https://reactrouter.com/web/guides/quick-start) - Para gerenciamento de rotas
