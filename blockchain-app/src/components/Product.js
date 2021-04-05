@@ -14,6 +14,7 @@ import LocalOfferIcon from '@material-ui/icons/LocalOffer';
 import PersonIcon from '@material-ui/icons/Person';
 import EditRoundedIcon from '@material-ui/icons/EditRounded';
 import API from '../services/Api';
+import EditButton from './ButtonEdit';
 
 function unpackProducts(res) {
     var result = res.data.result;
@@ -84,9 +85,7 @@ class Product extends React.Component {
                                                 secondary={'R$ ' + item.price}
                                             />
                                             <ListItemSecondaryAction>
-                                                <IconButton edge="start" aria-label="edit">
-                                                    <EditRoundedIcon />
-                                                </IconButton>
+                                                <EditButton id={item['@key']} code={item.code}/>
                                                 <IconButton edge="end" aria-label="delete">
                                                     <DeleteIcon />
                                                 </IconButton>

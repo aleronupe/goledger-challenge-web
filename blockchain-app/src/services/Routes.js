@@ -1,11 +1,10 @@
 import React, { Component } from "react";
 import { Router, Switch, Route } from "react-router-dom";
-// import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Category from '../components/Category';
 import Product from '../components/Product';
 import Seller from '../components/Seller';
-import Home from "../components/Home";
-import history from './History';
+import Home from '../components/Home';
+import EditProduct from '../components/EditProduct';
 
 const Routes = () => (
 
@@ -14,6 +13,7 @@ const Routes = () => (
             <Route path="/Categories" component={Category} />
             <Route path="/Products" component={Product} />
             <Route path="/Sellers" component={Seller} />
+            <Route path="/EditProduct/:id/:code" component={EditProduct} />
         </Switch>
 
 )

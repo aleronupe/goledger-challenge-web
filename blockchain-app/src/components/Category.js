@@ -10,6 +10,7 @@ import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import DeleteIcon from '@material-ui/icons/Delete';
 import LocalOfferIcon from '@material-ui/icons/LocalOffer';
+import FolderIcon from '@material-ui/icons/Folder';
 import EditRoundedIcon from '@material-ui/icons/EditRounded';
 import API from '../services/Api';
 import PropTypes from "prop-types";
@@ -82,7 +83,7 @@ class Category extends React.Component {
                                         items.map((item, idx) => <ListItem key={idx}>
                                             <ListItemAvatar>
                                                 <Avatar>
-                                                    <LocalOfferIcon />
+                                                    <FolderIcon />
                                                 </Avatar>
                                             </ListItemAvatar>
                                             <ListItemText
