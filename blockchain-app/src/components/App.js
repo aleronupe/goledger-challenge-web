@@ -1,28 +1,17 @@
 import React from 'react';
-import '../style/App.css';
+import { CssBaseline } from '@material-ui/core';
+import '../styles/App.css';
 import ListaAtivos from './List';
-import { CssBaseline, Toolbar, AppBar, Typography } from '@material-ui/core';
-import LogoImage from '../images/goledger-logo_alt.png';
+import Routes from '../services/Routes';
+import Navigation from '../services/Navigation';
 
 function App() {
   return (
     <React.Fragment>
       <CssBaseline />
-      <AppBar  position="relative" style={{ background: "#fff" }}>
-        <Toolbar style={{ paddingTop: 5, paddingBottom: 5}}>
-          <img
-            src={LogoImage}
-            height="65"
-            className="d-inline-block align-top"
-            alt="React Bootstrap logo"
-          />
-          <Typography variant="h6" color="inherit" noWrap>
-            Album layout
-          </Typography>
-        </Toolbar>
-      </AppBar>
+      <Navigation />
       <main>
-        <ListaAtivos />
+        <Routes />
       </main>
     </React.Fragment>
   );

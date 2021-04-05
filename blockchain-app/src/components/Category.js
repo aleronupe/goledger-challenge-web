@@ -13,8 +13,15 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import LocalOfferIcon from '@material-ui/icons/LocalOffer';
 import PersonIcon from '@material-ui/icons/Person';
 import EditRoundedIcon from '@material-ui/icons/EditRounded';
+import API from '../services/Api';
 
-class ListaAtivos extends React.Component {
+function unpackProducts(res) {
+    var result = res.data.result;
+    console.log('olha o format_result: ', result);
+    return result;
+}
+
+class Category extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -25,56 +32,31 @@ class ListaAtivos extends React.Component {
     }
 
     componentDidMount() {
-        fetch("http://ec2-54-173-117-139.compute-1.amazonaws.com/api/query/getSchema")
-            .then(res => res.json())
-            .then(
-                (result) => {
-                    console.log('olha o result: ', result);
-                    var cont = 0;
-                    result = result.map(item => {
-                        cont++;
-                        return { id: cont, ...item };
-                    });
-                    this.setState({
-                        isLoaded: true,
-                        items: result
-                    });
-                },
-                // Nota: É importante lidar com os erros aqui
-                // em vez de um bloco catch() para não recebermos
-                // exceções de erros dos componentes.
-                (error) => {
-                    this.setState({
-                        isLoaded: true,
-                        error
-                    });
-                }
-            )
+        const query = {
+            selector: {
+                '@assetType': 'category'
+            }
+        };
+        API.post('/query/search', { query }).then(
+            (res) => {
+                var result = unpackProducts(res);
+                this.setState({
+                    isLoaded: true,
+                    items: result
+                });
+            },
+            (error) => {
+                this.setState({
+                    isLoaded: true,
+                    error
+                });
+            }
+        )
     }
 
     render() {
+
         const { error, isLoaded, items } = this.state;
-
-        // function generate(element) {
-        //     return items.map((value) =>
-        //         React.cloneElement(element, {
-        //             key: value,
-        //         }),
-        //     );
-        // };
-
-        function decideIcon(tag) {
-            switch (tag) {
-                case "product":
-                    return (<LocalOfferIcon />);
-                case "seller":
-                    return (<PersonIcon />);
-                case "category":
-                    return (<FolderIcon />);
-                default:
-                    return (<FolderIcon />);
-            };
-        }
 
         if (error) {
             return <div>Error: {error.message}</div>;
@@ -83,23 +65,22 @@ class ListaAtivos extends React.Component {
         } else {
             return (
                 <div>
-                    <Grid container spacing={2} 
+                    <Grid container spacing={2}
                         alignItems="center"
                         justify="center" >
                         <Grid item xs={12} md={6} >
-                            <Typography variant="h6" >Ativos</Typography>
+                            <Typography variant="h6" >Categoria</Typography>
                             <div>
                                 <List>
                                     {
                                         items.map((item, idx) => <ListItem key={idx}>
                                             <ListItemAvatar>
                                                 <Avatar>
-                                                    {decideIcon(item.tag)}
+                                                    <LocalOfferIcon />
                                                 </Avatar>
                                             </ListItemAvatar>
                                             <ListItemText
-                                                primary={item.label}
-                                                secondary={item.description}
+                                                primary={item.name}
                                             />
                                             <ListItemSecondaryAction>
                                                 <IconButton edge="start" aria-label="edit">
@@ -119,7 +100,9 @@ class ListaAtivos extends React.Component {
 
             );
         }
+
+
     }
 }
 
-export default ListaAtivos;
+export default Category;
