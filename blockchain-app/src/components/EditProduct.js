@@ -4,9 +4,6 @@ import API from '../services/Api';
 import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
-
-
-
 class EditProduct extends React.Component {
     constructor(props) {
         super(props);

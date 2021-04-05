@@ -1,9 +1,8 @@
-import React, { Component } from "react";
-import history from './History';
+import React from "react";
 import Button from '@material-ui/core/Button';
 import { useHistory } from 'react-router-dom';
 import LogoImage from '../images/goledger-logo_alt.png';
-import { Toolbar, AppBar, Typography } from '@material-ui/core';
+import { Toolbar, AppBar } from '@material-ui/core';
 
 const Navigation = () => {
     const history = useHistory();
@@ -18,15 +17,17 @@ const Navigation = () => {
                     onClick={() => history.push('/', { some: 'state' })}
                 />
                 <Button color="secondary"
-                    onClick={() => history.push('/Categories')}>Categorias</Button>
+                    onClick={() => history.push('/Categories')}
+                    style={{marginLeft: 200}}>Categorias</Button>
                 <Button color="secondary"
-                    onClick={() => history.push('/Products')}>Produtos</Button>
+                    onClick={() => history.push('/Products')}
+                    style={{marginLeft: 40}}>Produtos</Button>
                 <Button color="secondary"
-                    onClick={() => history.push('/Sellers')}>Vendedores</Button>
+                    onClick={() => history.push('/Sellers')}
+                    style={{marginLeft: 40}}>Vendedores</Button>
             </Toolbar>
         </AppBar>
     )
-
 }
 
 export default Navigation;
