@@ -8,12 +8,12 @@ import Avatar from '@material-ui/core/Avatar';
 import IconButton from '@material-ui/core/IconButton';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
-import FolderIcon from '@material-ui/icons/Folder';
 import DeleteIcon from '@material-ui/icons/Delete';
 import LocalOfferIcon from '@material-ui/icons/LocalOffer';
-import PersonIcon from '@material-ui/icons/Person';
 import EditRoundedIcon from '@material-ui/icons/EditRounded';
 import API from '../services/Api';
+import PropTypes from "prop-types";
+import { withRouter } from "react-router";
 
 function unpackProducts(res) {
     var result = res.data.result;
@@ -22,6 +22,12 @@ function unpackProducts(res) {
 }
 
 class Category extends React.Component {
+    static propTypes = {
+        match: PropTypes.object.isRequired,
+        location: PropTypes.object.isRequired,
+        history: PropTypes.object.isRequired
+      };
+
     constructor(props) {
         super(props);
         this.state = {
@@ -105,4 +111,4 @@ class Category extends React.Component {
     }
 }
 
-export default Category;
+export default withRouter(Category);
